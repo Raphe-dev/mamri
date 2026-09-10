@@ -1,0 +1,6 @@
+Current
+Current/**
+dist
+dist/**
+.netlify
+.netlify/**

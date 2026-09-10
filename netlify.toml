@@ -1,0 +1,65 @@
+[build]
+  command = "npm run build:site && npm --prefix studio-mamri ci && SANITY_STUDIO_BASEPATH=/admin npm --prefix studio-mamri run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/admin"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/admin/index.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/static/favicon.ico"
+  to = "/admin/static/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from = "/static/favicon.svg"
+  to = "/admin/static/favicon.svg"
+  status = 200
+
+[[redirects]]
+  from = "/static/apple-touch-icon.png"
+  to = "/admin/static/apple-touch-icon.png"
+  status = 200
+
+[[redirects]]
+  from = "/static/manifest.webmanifest"
+  to = "/admin/static/manifest.webmanifest"
+  status = 200
