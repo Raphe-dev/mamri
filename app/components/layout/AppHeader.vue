@@ -86,6 +86,8 @@ watch(() => route.path, () => {
               :to="item.to"
               class="group relative inline-flex items-center gap-1 px-3 py-2 text-[0.95rem] font-medium transition"
               :class="isActive(item) ? 'text-white' : 'text-white/80 hover:text-white'"
+              aria-haspopup="true"
+              :aria-expanded="desktopMenu === item.label"
               @click="closeDesktopMenu"
             >
               {{ item.label }}
@@ -175,21 +177,22 @@ watch(() => route.path, () => {
             {{ item.label }}
           </NuxtLink>
           <div v-else class="border-b border-white/10 py-3">
-            <p class="text-sm font-semibold uppercase tracking-wider text-white/55">{{ item.label }}</p>
+            <NuxtLink
+              v-if="item.to"
+              :to="item.to"
+              class="block py-1 text-lg font-semibold"
+              @click="open = false"
+            >
+              {{ item.label }}
+            </NuxtLink>
+            <p v-else class="text-sm font-semibold uppercase tracking-wider text-white/55">{{ item.label }}</p>
             <div class="mt-2 space-y-1">
-              <NuxtLink
-                v-if="item.to"
-                :to="item.to"
-                class="block py-1.5 text-lg"
-                @click="open = false"
-              >
-                Vue d’ensemble
-              </NuxtLink>
               <NuxtLink
                 v-for="child in item.children"
                 :key="child.to"
                 :to="child.to"
                 class="block py-1.5 text-lg"
+                :class="item.to ? 'text-white/85' : ''"
                 @click="open = false"
               >
                 {{ child.label }}

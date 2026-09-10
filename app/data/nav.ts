@@ -14,6 +14,7 @@ export const mainNav: NavItem[] = [
   },
   {
     label: 'Projets',
+    to: '/projets',
     children: [
       { label: 'DEP en opération d’équipements de production', to: '/projets/dep-operateur' },
       { label: 'Lire, compter, cliquer', to: '/projets/lire-compter-cliquer' },
@@ -24,6 +25,7 @@ export const mainNav: NavItem[] = [
   { label: 'Calendrier', to: '/calendrier' },
   {
     label: 'Membres',
+    to: '/membres',
     children: [
       { label: 'Devenir membre', to: '/membres/devenir-membre' },
       { label: 'Connaissez-vous nos membres ?', to: '/membres' }
@@ -31,6 +33,7 @@ export const mainNav: NavItem[] = [
   },
   {
     label: 'À propos',
+    to: '/a-propos',
     children: [
       { label: 'Bulletin de l’industrie', to: '/bulletin' },
       { label: 'Qui nous sommes', to: '/a-propos' },
