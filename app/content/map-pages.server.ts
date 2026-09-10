@@ -1,4 +1,3 @@
-import imageUrlBuilder from '@sanity/image-url'
 import type {
   AboutPage,
   Cta,
@@ -13,43 +12,11 @@ import type {
   ServicesPage,
   TetPage
 } from '~/types/content'
+import { logoUrl, photoUrlOpt, type SanityImage } from './image-url.server'
 
-type SanityImage =
-  | {
-      asset?: { _ref?: string; _id?: string } | null
-      hotspot?: unknown
-      crop?: unknown
-    }
-  | null
-  | undefined
+export { logoUrl, photoUrl, photoUrlOpt } from './image-url.server'
 
 type Raw = Record<string, unknown> | null | undefined
-
-function builder() {
-  const projectId = process.env.SANITY_PROJECT_ID || process.env.NUXT_SANITY_PROJECT_ID
-  const dataset = process.env.SANITY_DATASET || 'production'
-  if (!projectId) throw new Error('SANITY_PROJECT_ID missing')
-  return imageUrlBuilder({ projectId, dataset })
-}
-
-function hasAsset(image: SanityImage): image is NonNullable<SanityImage> {
-  return Boolean(image && image.asset)
-}
-
-export function photoUrl(image: SanityImage, label: string) {
-  if (!hasAsset(image)) throw new Error(`[content] photo missing asset (${label})`)
-  return builder().image(image).width(1200).fit('crop').url()
-}
-
-export function photoUrlOpt(image: SanityImage) {
-  if (!hasAsset(image)) return undefined
-  return builder().image(image).width(1200).fit('crop').url()
-}
-
-export function logoUrl(image: SanityImage, label: string) {
-  if (!hasAsset(image)) throw new Error(`[content] logo missing asset (${label})`)
-  return builder().image(image).width(400).url()
-}
 
 function rec(value: unknown): Record<string, unknown> {
   if (value && typeof value === 'object' && !Array.isArray(value)) return value as Record<string, unknown>
@@ -169,7 +136,9 @@ export function mapHomePage(raw: Raw): HomePage {
       imageAlt: str(years.imageAlt) || undefined
     },
     networkCta: {
+      kicker: str(network.kicker),
       title: str(network.title),
+      text: str(network.text),
       cta: {
         label: str(rec(network.cta).label),
         to: str(rec(network.cta).to)

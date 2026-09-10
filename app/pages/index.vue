@@ -146,16 +146,20 @@ usePageSeo({
     </section>
 
     <CtaBand
+      id="cta-reseau"
+      :kicker="home.networkCta.kicker || 'Réseau'"
       :title="home.networkCta.title"
+      :text="home.networkCta.text || 'Déjeuners-conférences, cercles de pairs et alliances entre manufacturiers. Nous vous y connectons.'"
       :cta-label="home.networkCta.cta.label"
       :to="home.networkCta.cta.to"
-      :image="home.networkCta.image"
-      :image-alt="home.networkCta.imageAlt"
+      :image="home.networkCta.image || '/images/photos/reseaux.jpg'"
+      :image-alt="home.networkCta.imageAlt || 'Réseautage entre professionnels de l’industrie'"
     />
 
     <LogoGrid title="Ils nous font confiance" :logos="memberLogos" />
 
     <CtaBand
+      id="cta-bulletin"
       tone="paper"
       title="S’abonner au Bulletin de l’industrie"
       text="Recevez chaque mois nos nouvelles, nos événements à venir et des occasions de formation exclusives."

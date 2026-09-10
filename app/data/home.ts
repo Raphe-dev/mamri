@@ -62,7 +62,9 @@ export const home = {
     }
   },
   networkCta: {
-    title: 'Vous souhaitez agrandir votre réseau ? Laissez-nous vous aider.',
+    kicker: 'Réseau',
+    title: 'Agrandissez votre réseau industriel en Estrie',
+    text: 'Déjeuners-conférences, cercles de pairs et alliances entre manufacturiers. Nous vous y connectons.',
     cta: { label: 'Contactez-nous', to: '/contact' }
   }
 }

@@ -23,6 +23,11 @@
     Cache-Control = "public, max-age=604800"
 
 [[headers]]
+  for = "/cdn/sanity/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
   for = "/admin"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
@@ -33,6 +38,12 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
     Cache-Control = "no-cache"
+
+[[redirects]]
+  from = "/cdn/sanity/images/*"
+  to = "https://cdn.sanity.io/images/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/admin"

@@ -54,7 +54,9 @@ export const homePage = defineType({
       title: 'Bandeau réseau',
       type: 'object',
       fields: [
+        defineField({name: 'kicker', title: 'Sur-titre', type: 'string'}),
         defineField({name: 'title', title: 'Titre', type: 'string'}),
+        defineField({name: 'text', title: 'Texte', type: 'text', rows: 3}),
         defineField({name: 'cta', title: 'Bouton', type: 'pageCta'}),
         defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
         defineField({name: 'imageAlt', title: 'Texte alternatif', type: 'string'}),

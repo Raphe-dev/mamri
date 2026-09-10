@@ -1,5 +1,5 @@
-import imageUrlBuilder from '@sanity/image-url'
 import type { EventItem, EventType, SiteContent } from '~/types/content'
+import { logoUrl, photoUrl, type SanityImage } from './image-url.server'
 import {
   mapAboutPage,
   mapDepPage,
@@ -19,15 +19,6 @@ const EVENT_TYPES: EventType[] = ['formation', 'evenement', 'visite', 'webinaire
 const DEFAULT_ZOHO_ENQUETE =
   'https://forms.zoho.com/emploiscomptences/form/EnqutesalarialeMRIParticipantlenqute'
 const DEFAULT_ZOHO_BULLETIN = 'https://mamri.ca/bulletin'
-
-type SanityImage =
-  | {
-      asset?: { _ref?: string; _id?: string } | null
-      hotspot?: unknown
-      crop?: unknown
-    }
-  | null
-  | undefined
 
 export type SiteContentBundle = {
   settings: {
@@ -107,27 +98,6 @@ export type SiteContentBundle = {
   depPage?: Record<string, unknown> | null
   lirePage?: Record<string, unknown> | null
   tetPage?: Record<string, unknown> | null
-}
-
-function builder() {
-  const projectId = process.env.SANITY_PROJECT_ID || process.env.NUXT_SANITY_PROJECT_ID
-  const dataset = process.env.SANITY_DATASET || 'production'
-  if (!projectId) throw new Error('SANITY_PROJECT_ID missing')
-  return imageUrlBuilder({ projectId, dataset })
-}
-
-function hasAsset(image: SanityImage): image is NonNullable<SanityImage> {
-  return Boolean(image && image.asset)
-}
-
-function logoSrc(image: SanityImage, label: string) {
-  if (!hasAsset(image)) throw new Error(`[content] memberLogo missing asset (${label})`)
-  return builder().image(image).width(400).url()
-}
-
-function photoSrc(image: SanityImage, label: string) {
-  if (!hasAsset(image)) throw new Error(`[content] photo missing asset (${label})`)
-  return builder().image(image).width(1200).fit('crop').url()
 }
 
 function must(value: string | null | undefined, label: string): string {
@@ -236,7 +206,7 @@ export function mapBundle(raw: SiteContentBundle): SiteContent {
         {
           name,
           href: must(logo.href, `memberLogo.href ${name}`),
-          src: logoSrc(logo.logo, name)
+          src: logoUrl(logo.logo, name)
         }
       ]
     }),
@@ -246,7 +216,7 @@ export function mapBundle(raw: SiteContentBundle): SiteContent {
       return [
         {
           name,
-          image: photoSrc(spot.image, name),
+          image: photoUrl(spot.image, name),
           imageAlt: must(spot.imageAlt, `memberSpotlight.imageAlt ${name}`),
           body: must(spot.body, `memberSpotlight.body ${name}`),
           href: must(spot.href, `memberSpotlight.href ${name}`),
@@ -262,7 +232,7 @@ export function mapBundle(raw: SiteContentBundle): SiteContent {
         {
           name,
           title: must(member.title, `teamMember.title ${name}`),
-          image: photoSrc(member.image, name),
+          image: photoUrl(member.image, name),
           linkedin: member.linkedin ?? ''
         }
       ]

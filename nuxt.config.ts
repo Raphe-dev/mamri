@@ -94,7 +94,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/', '/sitemap.xml'],
-      ignore: ['/admin', '/admin/**']
+      ignore: ['/admin', '/admin/**', '/cdn/sanity/**']
     },
     watchOptions: {
       usePolling: true,
@@ -109,6 +109,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/admin': { prerender: false, index: false },
     '/admin/**': { prerender: false, index: false },
+    '/cdn/sanity/**': { prerender: false },
     '/reseaux-professionnels': { redirect: { to: '/services/reseaux-professionnels', statusCode: 301 } },
     '/reseaux-professionnels/': { redirect: { to: '/services/reseaux-professionnels', statusCode: 301 } },
     '/formations': { redirect: { to: '/services/formations', statusCode: 301 } },

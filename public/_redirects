@@ -1,3 +1,4 @@
+/cdn/sanity/images/*  https://cdn.sanity.io/images/:splat  200!
 /admin  /admin/index.html  200
 /admin/*  /admin/index.html  200
 /static/favicon.ico  /admin/static/favicon.ico  200

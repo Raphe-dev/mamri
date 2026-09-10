@@ -131,7 +131,9 @@ export async function seedPages(
       imageAlt: 'Professionnels lors d’un déjeuner-conférence de la MRI'
     },
     networkCta: {
+      kicker: homeRest.networkCta.kicker,
       title: homeRest.networkCta.title,
+      text: homeRest.networkCta.text,
       cta: { _type: 'pageCta', ...homeRest.networkCta.cta },
       image: await image(
         '/images/photos/reseaux.jpg',
